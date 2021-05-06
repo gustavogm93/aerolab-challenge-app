@@ -20,3 +20,11 @@ export function useUser(): Context["state"]["user"] {
 
   return user;
 }
+
+export function useRedeem(): Context["actions"]["redeem"] {
+  const {
+    actions: { redeem },
+  } = React.useContext(UserContext);
+
+  return redeem;
+}

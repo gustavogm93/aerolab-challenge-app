@@ -1,8 +1,9 @@
-import { Divider, Grid, Stack } from "@chakra-ui/react";
+import { Divider, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import { Product } from "../../types";
 import Count from "./count";
 import Filters from "./filters";
+import Grid from "./grid";
 import { Filter } from "./types";
 
 interface Props {
@@ -45,7 +46,7 @@ const ProductList: React.FC<Props> = ({ products }) => {
         />
         <Filters active={filter} onChange={setFilter} />
       </Stack>
-      <Grid products={filteredProducts}> </Grid>
+      <Grid products={filteredProducts} />
       <Count
         current={filteredProducts.length}
         total={filteredProducts.length}
