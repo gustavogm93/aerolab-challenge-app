@@ -5,7 +5,6 @@ import Count from "./count";
 import Filters from "./filters";
 import Grid from "./grid";
 import { Filter } from "./types";
-
 interface Props {
   products: Product[];
 }

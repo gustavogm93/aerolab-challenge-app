@@ -2,6 +2,9 @@ import {extendTheme, theme} from "@chakra-ui/react"
 
 export default extendTheme({
     colors: {
-        primary: theme.colors.orange,
+        primary: theme.colors.blue,
     },
+    font: {
+        body: "SourceSansPro",
+    }
 })

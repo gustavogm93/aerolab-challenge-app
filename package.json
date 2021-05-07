@@ -12,7 +12,10 @@
     "@emotion/styled": "^11",
     "framer-motion": "^4",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "react-icons": "^4.2.0",
+    "react-router-dom": "^5.2.0",
+    "source-sans-pro": "^3.6.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.31",

@@ -1,9 +1,11 @@
 import React from "react";
 import { Stack, Container, Box, Image, Text } from "@chakra-ui/react";
-
+import { Link } from "react-router-dom";
 import logo from "~/assets/logo.svg";
 import coin from "~/assets/icons/coin.svg";
+import search from "~/assets/icons/search.svg";
 import { usePoints, useUser } from "~/app/user/hooks";
+import { FcTodoList } from "react-icons/fc";
 //TODO: Ver explicacion 18:00
 //Justify content = elementos se empujen hacia los costados extremos
 const Navbar: React.FC = () => {
@@ -19,7 +21,9 @@ const Navbar: React.FC = () => {
           justifyContent="space-between"
           paddingY={3}
         >
-          <Image height={8} src={logo} width={8} />
+          <Link to={"/"}>
+            <Image height={8} src={logo} width={8} />
+          </Link>
           <Stack
             alignItems="center"
             color="gray.500"
@@ -34,12 +38,26 @@ const Navbar: React.FC = () => {
               borderRadius={9999}
               cursor="pointer"
               direction="row"
+              height={8}
               paddingX={3}
               paddingY={2}
               onClick={() => setPoints(1000)}
             >
               <Text fontweigth="500"> {points} </Text>
               <Image height={6} src={coin} width={6} />
+            </Stack>
+            <Stack
+              alignItems="center"
+              backgroundColor="gray.100"
+              borderRadius={9999}
+              cursor="pointer"
+              direction="row"
+              paddingX={3}
+              paddingY={2}
+            >
+              <Link to={"/orders"}>
+                <FcTodoList />
+              </Link>
             </Stack>
           </Stack>
         </Stack>

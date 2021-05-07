@@ -8,10 +8,11 @@ import {
   Divider,
   Flex,
   Button,
+  Grid,
 } from "@chakra-ui/react";
 import React from "react";
 import { Product } from "../../types";
-import buyBlue from "~/assets/icons/buy-blue.svg";
+import coin from "~/assets/icons/coin.svg";
 import { usePoints, useRedeem } from "~/app/user/hooks";
 import Availability from "./availability";
 import Footer from "./footer";
@@ -23,7 +24,9 @@ interface Props extends BoxProps {
 //TODO: Grilla chakra minimo 256px y maximo todo el espacio
 const ProductCard: React.FC<Props> = ({ product, isSelected, ...props }) => {
   const [points] = usePoints();
-  const canBuy = product.cost <= points;
+  const canBuy = points >= product.cost;
+  const pointsDifference = Math.abs(points - product.cost);
+
   const redeem = useRedeem();
 
   function handleRedeem() {
@@ -40,20 +43,20 @@ const ProductCard: React.FC<Props> = ({ product, isSelected, ...props }) => {
       position="relative"
       {...props}
     >
-      <Stack spacing={3}>
-        <Availability canBuy={canBuy} />
+      <Stack spacing={2}>
+        <Availability canBuy={canBuy} pointsDifference={pointsDifference} />
         <Center>
           <Image objectFit="contain" src={product.img.url} width={64}></Image>
         </Center>
         <Divider />
         <Footer product={product} />
       </Stack>
-      {isSelected && (
+      {isSelected && canBuy && (
         <Flex
           alignItems="center"
+          justifyContent="center"
           borderRadius="sm"
           height="100%"
-          justifyContent="center"
           left={0}
           position="absolute"
           top={0}
@@ -61,7 +64,7 @@ const ProductCard: React.FC<Props> = ({ product, isSelected, ...props }) => {
           zIndex={2}
         >
           <Box
-            backgroundColor={canBuy ? "primary.500" : "gray.500"}
+            bgGradient="linear(to-l, #0ad4fa, #25bbf1)"
             borderRadius="sm"
             height="100%"
             left={0}
@@ -77,15 +80,26 @@ const ProductCard: React.FC<Props> = ({ product, isSelected, ...props }) => {
             spacing={6}
             zIndex={3}
           >
-            <Stack spacing={0}>
-              <Text> {points} </Text>
-              <Text borderBottomColor="white" borderBottomWidth={2}>
-                -{product.cost}
+            <Flex
+              alignItems="center"
+              justifyContent="center"
+              gap={2}
+              autoFlow="row"
+            >
+              <Text fontSize={32} fontWeight={10}>
+                {product.cost}
               </Text>
-              <Text> {points - product.cost}</Text>
-            </Stack>
+              <Image paddingX={2} position="relative" top={1} src={coin} />
+            </Flex>
+
             {canBuy && (
-              <Button color="primary.500" onClick={handleRedeem}>
+              <Button
+                height={42}
+                width={228}
+                borderRadius={10}
+                color="primary.500"
+                onClick={handleRedeem}
+              >
                 Reedem now
               </Button>
             )}

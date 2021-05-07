@@ -5,9 +5,10 @@ import coin from "~/assets/icons/coin.svg";
 
 interface Props {
   canBuy: boolean;
+  pointsDifference: number;
 }
 //TODO: Grilla chakra minimo 256px y maximo todo el espacio
-const Availability: React.FC<Props> = ({ canBuy }) => {
+const Availability: React.FC<Props> = ({ canBuy, pointsDifference }) => {
   if (canBuy) {
     return (
       <Stack
@@ -40,14 +41,22 @@ const Availability: React.FC<Props> = ({ canBuy }) => {
       padding={3}
       paddingY={1}
       position="absolute"
-      right={6}
+      right={2}
       width={142}
       height={42}
-      opacity="0.9"
-      top={6}
+      opacity="0.8"
+      top={2}
     >
-      <Text color="white"> {"You need 222"}</Text>
-      <Image src={coin} width={5} height={5}></Image>
+      <Text
+        fontFamily="SourceSansPro-Regular"
+        fontSize={14}
+        letterSpacing="-0.03px"
+        text-align="right"
+        color="white"
+      >
+        {`You need ${pointsDifference}`}
+      </Text>
+      <Image src={coin} width={6} height={6}></Image>
     </Stack>
   );
 };

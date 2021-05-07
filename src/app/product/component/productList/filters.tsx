@@ -21,7 +21,7 @@ const Filters: React.FC<Props> = ({ onChange, active }) => {
         {_Filters.map((filter) => (
           <Box
             key={filter}
-            backgroundColor={filter === active ? "primary.400" : "gray:100"}
+            backgroundColor={filter === active ? "cyan.400" : "gray:100"}
             borderRadius={9999}
             color={filter === active ? "white" : "gray:600"}
             cursor="pointer"
