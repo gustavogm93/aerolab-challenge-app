@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomeScreen from "~/app/screens/home";
 import Orders from "~/app/screens/orders";
 import { Provider as UserProvider } from "../src/app/user/context";
+import { Provider as ProductProvider } from "../src/app/product/context";
 import Layout from "~/app/layout/layout";
 import theme from "./theme";
 import "./theme.css";
@@ -17,13 +18,15 @@ const App = () => {
     <React.StrictMode>
       <ChakraProvider theme={theme}>
         <UserProvider>
+        <ProductProvider>
           <Layout>
             <Switch>
               <Route exact path="/" component={HomeScreen} />
               <Route exact path="/orders" component={Orders} />
             </Switch>
           </Layout>
-        </UserProvider>
+          </ProductProvider>
+        </UserProvider>       
       </ChakraProvider>
     </React.StrictMode>
   </Router>)

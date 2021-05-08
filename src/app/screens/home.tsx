@@ -3,31 +3,11 @@ import { Flex, CircularProgress, Heading, Stack } from "@chakra-ui/react";
 import { Product } from "~/app/product/types";
 import header from "~/assets/header.png";
 import ProductList from "~/app/product/component/productList";
+import {useProduct } from "~/app/product/hooks";
 import api from "~/app/product/api";
 
 const HomeScreen: React.FC = () => {
-  const [products, setProducts] = React.useState<Product[]>([]);
-  const [status, setStatus] = React.useState<
-    "pending" | "resolved" | "rejected"
-  >("pending");
 
-  React.useEffect(() => {
-    api.list().then((products) => {
-      setProducts(products.data);
-      setStatus("resolved");
-    });
-  }, []);
-
-  if (status === "pending") {
-    return (
-      <Flex alignItems="center" justifyContent="center" paddingY={12}>
-        <CircularProgress
-          isIndeterminate
-          color="primary.500"
-        ></CircularProgress>
-      </Flex>
-    );
-  }
 
   return (
     <Stack flex={1} spacing={6}>
@@ -44,7 +24,7 @@ const HomeScreen: React.FC = () => {
           Electronics
         </Heading>
       </Flex>
-      <ProductList products={products} />
+      <ProductList />
     </Stack>
   );
 };

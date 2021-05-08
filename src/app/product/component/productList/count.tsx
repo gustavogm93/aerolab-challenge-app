@@ -1,13 +1,14 @@
 import React from "react";
 import { Text } from "@chakra-ui/react";
-interface Props {
-  current: number;
-  total: number;
-}
-const Count: React.FC<Props> = ({ current, total }) => {
+import { usePagination } from "../../hooks";
+
+
+const Count: React.FC = () => {
+  const {total, limit, currentPage} = usePagination()
+
   return (
     <Text color="gray.500" fontWeight="bold">
-      {current} of {total} products
+      {limit * currentPage} of {total} products
     </Text>
   );
 };

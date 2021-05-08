@@ -1,13 +1,15 @@
 import api from "~/api/api";
-import { Pagination, Product } from "./types";
+import { Pagination } from "~/common/types";
+import { Product } from "./types";
 
 export default {
 
-  list: async (): Promise<Pagination<Product>> => {
-    const { data } = await api.get('https://aerolab-service.herokuapp.com/product')
+  list: async (page: number): Promise<Pagination<Product>> => {
+    const { data } = await api.get(`https://aerolab-service.herokuapp.com/product?page=${page}&limit=16`)
 
     return data
   },
+
 
   redeem: async (product: Product): Promise<String> => {
     const body = {

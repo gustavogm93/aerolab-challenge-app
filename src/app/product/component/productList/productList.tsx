@@ -1,15 +1,15 @@
-import { Divider, Stack } from "@chakra-ui/react";
+import { Divider, Spacer, Stack } from "@chakra-ui/react";
 import React from "react";
-import { Product } from "../../types";
+import { useProduct } from "../../hooks";
 import Count from "./count";
 import Filters from "./filters";
 import Grid from "./grid";
 import Pagination from "./pagination"
 import { Filter } from "./types";
-interface Props {
-  products: Product[];
-}
-const ProductList: React.FC<Props> = ({ products }) => {
+
+
+const ProductList: React.FC = () => {  
+  const products = useProduct();
   const [filter, setFilter] = React.useState<Filter>(Filter.MostRecent);
   const filteredProducts = React.useMemo(() => {
     switch (filter) {
@@ -19,7 +19,6 @@ const ProductList: React.FC<Props> = ({ products }) => {
       case Filter.LowestPrice: {
         return [...products].sort((a, b) => a.cost - b.cost);
       }
-
       case Filter.MostRecent:
       default: {
         return products;
@@ -33,18 +32,14 @@ const ProductList: React.FC<Props> = ({ products }) => {
         alignItems="center"
         as="nav"
         direction="row"
-        divider={
-          <Divider borderColor="gray.300" height={12} orientation="vertical" />
-        }
         flex={1}
         spacing={6}
         width="100%"
       >
-        <Count
-          current={filteredProducts.length}
-          total={filteredProducts.length}
-        />
+        <Count/>
+          <Divider borderColor="gray.300" height={12} orientation="vertical" />
         <Filters active={filter} onChange={setFilter}/>
+        <Spacer />
         <Pagination/>
       </Stack>
       
