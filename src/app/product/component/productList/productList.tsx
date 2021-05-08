@@ -1,9 +1,10 @@
-import { Divider, Stack, Text } from "@chakra-ui/react";
+import { Divider, Stack } from "@chakra-ui/react";
 import React from "react";
 import { Product } from "../../types";
 import Count from "./count";
 import Filters from "./filters";
 import Grid from "./grid";
+import Pagination from "./pagination"
 import { Filter } from "./types";
 interface Props {
   products: Product[];
@@ -43,8 +44,10 @@ const ProductList: React.FC<Props> = ({ products }) => {
           current={filteredProducts.length}
           total={filteredProducts.length}
         />
-        <Filters active={filter} onChange={setFilter} />
+        <Filters active={filter} onChange={setFilter}/>
+        <Pagination/>
       </Stack>
+      
       <Grid products={filteredProducts} />
       <Count
         current={filteredProducts.length}

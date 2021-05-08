@@ -40,8 +40,8 @@ const UserProvider: React.FC = ({ children }) => {
   }
 
   React.useEffect(() => {
-    api.fetch().then((user) => {
-      setUser(user);
+    api.getProfile().then((data) => {
+      setUser(data);
       setStatus("resolved");
     });
   }, []);
@@ -50,7 +50,6 @@ const UserProvider: React.FC = ({ children }) => {
     return (
       <Center padding={12}>
         <CircularProgress isIndeterminate color="primary.500">
-          {" "}
         </CircularProgress>
       </Center>
     );
@@ -66,7 +65,7 @@ const UserProvider: React.FC = ({ children }) => {
 
   return (
     <UserContext.Provider value={{ state, actions }}>
-      {children}{" "}
+      {children}
     </UserContext.Provider>
   );
 };

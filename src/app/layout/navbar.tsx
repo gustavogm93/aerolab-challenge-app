@@ -3,7 +3,6 @@ import { Stack, Container, Box, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import logo from "~/assets/logo.svg";
 import coin from "~/assets/icons/coin.svg";
-import search from "~/assets/icons/search.svg";
 import { usePoints, useUser } from "~/app/user/hooks";
 import { FcTodoList } from "react-icons/fc";
 //TODO: Ver explicacion 18:00
@@ -46,6 +45,7 @@ const Navbar: React.FC = () => {
               <Text fontweigth="500"> {points} </Text>
               <Image height={6} src={coin} width={6} />
             </Stack>
+            <Link to={"/orders"}>
             <Stack
               alignItems="center"
               backgroundColor="gray.100"
@@ -54,11 +54,10 @@ const Navbar: React.FC = () => {
               direction="row"
               paddingX={3}
               paddingY={2}
-            >
-              <Link to={"/orders"}>
+            >             
                 <FcTodoList />
-              </Link>
             </Stack>
+            </Link>
           </Stack>
         </Stack>
       </Container>

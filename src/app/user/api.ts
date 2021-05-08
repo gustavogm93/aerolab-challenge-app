@@ -1,15 +1,16 @@
+import api from "~/api/api";
 import { User } from "./types";
 
 export default {
-    fetch: ():Promise<User> => Promise.resolve({
-        
-            id: "5a03638052fd231590d04eb5",
-            name: "John Kite",
-            points: 2000,
-            redeemHistory: [],
-            createDate: "new Date(1510171520852)"
-    }),
+
+    getProfile: async (): Promise<User> => {
+
+        const { data } = await api.get('https://aerolab-service.herokuapp.com/user/me')
+
+        return data
+    },
+
     points: {
-        add: (amount: number): Promise<number> => Promise.resolve(amount),
+        add: async (amount: number): Promise<number> => await api.get('https://aerolab-service.herokuapp.com/user/points'),
     },
 };

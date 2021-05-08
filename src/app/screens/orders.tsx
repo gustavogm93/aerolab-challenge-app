@@ -13,6 +13,7 @@ const HomeScreen: React.FC = () => {
 
   React.useEffect(() => {
     api.list().then((products) => {
+ 
       setProducts(products);
       setStatus("resolved");
     });

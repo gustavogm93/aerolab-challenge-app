@@ -8,9 +8,12 @@ import { Provider as UserProvider } from "../src/app/user/context";
 import Layout from "~/app/layout/layout";
 import theme from "./theme";
 import "./theme.css";
+import api from "./api/api";
 
-ReactDOM.render(
-  <Router>
+const App = () => {
+  api.init(process.env.AEROLAB_BASE_URL)
+
+  return (<Router>
     <React.StrictMode>
       <ChakraProvider theme={theme}>
         <UserProvider>
@@ -23,6 +26,7 @@ ReactDOM.render(
         </UserProvider>
       </ChakraProvider>
     </React.StrictMode>
-  </Router>,
-  document.getElementById("root")
+  </Router>)
+}
+ReactDOM.render(<App/>, document.getElementById("root")
 );

@@ -13,7 +13,7 @@ const HomeScreen: React.FC = () => {
 
   React.useEffect(() => {
     api.list().then((products) => {
-      setProducts(products);
+      setProducts(products.data);
       setStatus("resolved");
     });
   }, []);

@@ -48,8 +48,8 @@ const ProductHistory: React.FC = () => {
         <Thead>
           <Tr maxW={"1m"}>
             <Th align-items="center">product</Th>
-            <Th>price</Th>
             <Th>category</Th>
+            <Th>price</Th>
             <Th>date</Th>
             <Th></Th>
           </Tr>
@@ -57,7 +57,13 @@ const ProductHistory: React.FC = () => {
         <Tbody margin={100}>
           {products.map((product) => (
             <Tr key={product._id}>
-              <Td width={1}>{product.name}</Td>
+              <Td >{product.name}</Td>
+             
+              <Td>
+                <Badge borderRadius="full" px="2" colorScheme="cyan">
+                  {product.category}
+                </Badge>
+              </Td>
               <Td>
                 <Flex>
                   <Badge borderRadius="full" px="2" colorScheme="gray">
@@ -66,12 +72,6 @@ const ProductHistory: React.FC = () => {
                   <Image height={4} src={coin} width={4} />
                 </Flex>
               </Td>
-              <Td>
-                <Badge borderRadius="full" px="2" colorScheme="cyan">
-                  {product.category}
-                </Badge>
-              </Td>
-
               <Td>
                 <Badge borderRadius="full" px="2" colorScheme="brown">
                   {toDate(product.createDate)}

@@ -84,7 +84,7 @@ const ProductCard: React.FC<Props> = ({ product, isSelected, ...props }) => {
               alignItems="center"
               justifyContent="center"
               gap={2}
-              autoFlow="row"
+              
             >
               <Text fontSize={32} fontWeight={10}>
                 {product.cost}
