@@ -1,19 +1,16 @@
 import React from "react";
-import { Box, Stack, Text } from "@chakra-ui/react";
-import { Filter } from "./types";
+import {Box, Stack, Text} from "@chakra-ui/react";
+
+import {Filter} from "./types";
 
 interface Props {
   active: Filter;
   onChange: (filter: Filter) => void;
 }
 
-const _Filters: Filter[] = [
-  Filter.MostRecent,
-  Filter.LowestPrice,
-  Filter.HighestPrice,
-];
+const _Filters: Filter[] = [Filter.MostRecent, Filter.LowestPrice, Filter.HighestPrice];
 
-const Filters: React.FC<Props> = ({ onChange, active }) => {
+const Filters: React.FC<Props> = ({onChange, active}) => {
   return (
     <Stack alignItems="center" direction="row" spacing={6}>
       <Text color="gray.500">Sort By:</Text>

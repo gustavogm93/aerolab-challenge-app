@@ -1,20 +1,23 @@
-import { Stack, Image, Text } from "@chakra-ui/react";
+import {Stack, Image, Text} from "@chakra-ui/react";
 import React from "react";
+
 import buyBlue from "~/assets/icons/buy-blue.svg";
+import buyWhite from "~/assets/icons/buy-white.svg";
 import coin from "~/assets/icons/coin.svg";
 
 interface Props {
   canBuy: boolean;
+  isSelected: boolean;
   pointsDifference: number;
 }
 //TODO: Grilla chakra minimo 256px y maximo todo el espacio
-const Availability: React.FC<Props> = ({ canBuy, pointsDifference }) => {
+const Availability: React.FC<Props> = ({canBuy, isSelected, pointsDifference}) => {
   if (canBuy) {
     return (
       <Stack
-        className="purchase-availability"
         alignItems="center"
-        color="primary.500"
+        className="purchase-availability"
+        color="cyan.400"
         direction="row"
         fontSize="sm"
         fontWeight="500"
@@ -22,8 +25,14 @@ const Availability: React.FC<Props> = ({ canBuy, pointsDifference }) => {
         position="absolute"
         right={2}
         top={2}
+        zIndex={3}
       >
-        <Image src={buyBlue} width={42} height={42} borderRadius={9999}></Image>
+        <Image
+          borderRadius={9999}
+          height={isSelected ? 50 : 42}
+          src={isSelected ? buyWhite : buyBlue}
+          width={isSelected ? 50 : 42}
+        />
       </Stack>
     );
   }
@@ -37,26 +46,26 @@ const Availability: React.FC<Props> = ({ canBuy, pointsDifference }) => {
       direction="row"
       fontSize="sm"
       fontWeight="500"
+      height={42}
       justifyContent="center"
+      opacity="0.8"
       padding={3}
       paddingY={1}
       position="absolute"
       right={2}
-      width={142}
-      height={42}
-      opacity="0.8"
       top={2}
+      width={142}
     >
       <Text
+        color="white"
         fontFamily="SourceSansPro-Regular"
         fontSize={14}
         letterSpacing="-0.03px"
         text-align="right"
-        color="white"
       >
         {`You need ${pointsDifference}`}
       </Text>
-      <Image src={coin} width={6} height={6}></Image>
+      <Image height={6} src={coin} width={6} />
     </Stack>
   );
 };

@@ -1,9 +1,12 @@
-import { Center, CircularProgress } from "@chakra-ui/react";
+import {Center, CircularProgress} from "@chakra-ui/react";
 import React from "react";
-import api from "./api";
-import { User } from "./types";
+
 import productApi from "~/app/product/api";
-import { Product } from "~/app/product/types";
+import {Product} from "~/app/product/types";
+import {Status} from "~/common/status/types";
+
+import api from "./api";
+import {User} from "./types";
 
 export interface Context {
   state: {
@@ -17,40 +20,40 @@ export interface Context {
 
 const UserContext = React.createContext({} as Context);
 
-const UserProvider: React.FC = ({ children }) => {
+const UserProvider: React.FC = ({children}) => {
   const [user, setUser] = React.useState<User>();
-  const [status, setStatus] = React.useState<
-    "pending" | "resolved" | "rejected"
-  >("pending");
+  const [status, setStatus] = React.useState<Status>(Status.Pending);
 
   async function handleRedeem(product: Product) {
     if (!user) return;
 
+    setUser({...user, points: user.points - product.cost});
+
     return productApi.redeem(product).then(() => {
-      setUser({ ...user, points: user.points - product.cost });
+      setUser({...user, points: user.points - product.cost});
     });
   }
 
   async function handleAddPoints(amount: number) {
     if (!user) return;
+    setUser({...user, points: user.points + amount});
 
     return api.points.add(amount).then(() => {
-      setUser({ ...user, points: user.points + amount });
+      setUser({...user, points: user.points + amount});
     });
   }
 
   React.useEffect(() => {
     api.getProfile().then((data) => {
       setUser(data);
-      setStatus("resolved");
+      setStatus(Status.Resolved);
     });
   }, []);
 
-  if (!user || status === "pending") {
+  if (!user || status === Status.Pending) {
     return (
       <Center padding={12}>
-        <CircularProgress isIndeterminate color="primary.500">
-        </CircularProgress>
+        <CircularProgress isIndeterminate color="cyan.400" />
       </Center>
     );
   }
@@ -63,11 +66,7 @@ const UserProvider: React.FC = ({ children }) => {
     redeem: handleRedeem,
   };
 
-  return (
-    <UserContext.Provider value={{ state, actions }}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={{state, actions}}>{children}</UserContext.Provider>;
 };
 
-export { UserContext as default, UserProvider as Provider };
+export {UserContext as default, UserProvider as Provider};

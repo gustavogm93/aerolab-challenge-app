@@ -1,10 +1,10 @@
 import React from "react";
-import { Flex, Heading, Stack } from "@chakra-ui/react";
+import {Flex, Heading, Stack} from "@chakra-ui/react";
+
 import header from "~/assets/header.png";
 import ProductHistory from "../product/component/productHistory/productHistory";
 
 const HomeScreen: React.FC = () => {
-
   return (
     <Stack flex={1} spacing={6}>
       <Flex

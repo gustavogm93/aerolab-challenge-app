@@ -11,39 +11,40 @@ import {
   Box,
   Badge,
   Flex,
+  Center,
+  CircularProgress,
 } from "@chakra-ui/react";
+
 import coin from "~/assets/icons/coin.svg";
+import {Status} from "~/common/status/types";
+import {toDate} from "~/common/utils/date";
+import {getBadgeColor} from "~/app/product/styles";
+
 import api from "./api";
-import { ProductHistory } from "./types";
+import {ProductHistory} from "./types";
 
 //TODO: Grilla chakra minimo 256px y maximo todo el espacio
 const ProductHistory: React.FC = () => {
   const [products, setProducts] = React.useState<ProductHistory[]>([]);
-  const [status, setStatus] = React.useState<
-    "pending" | "resolved" | "rejected"
-  >("pending");
+  const [status, setStatus] = React.useState<Status>(Status.Pending);
 
   React.useEffect(() => {
     api.list().then((products) => {
       setProducts(products);
-      setStatus("resolved");
+      setStatus(Status.Resolved);
     });
   }, []);
 
-  function toDate(date: string) {
-    const newDate = new Date(date);
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    };
-    return newDate.toLocaleTimeString([], options);
+  if (status === Status.Pending) {
+    return (
+      <Center padding={12}>
+        <CircularProgress isIndeterminate color="cyan.400" />
+      </Center>
+    );
   }
 
   return (
-    <Box maxW="6xl" overflow="hidden" boxShadow="md" bg="white" padding={10}>
+    <Box bg="white" boxShadow="md" maxW="6xl" overflow="hidden" padding={10}>
       <Table variant="simple">
         <Thead>
           <Tr maxW={"1m"}>
@@ -51,46 +52,40 @@ const ProductHistory: React.FC = () => {
             <Th>category</Th>
             <Th>price</Th>
             <Th>date</Th>
-            <Th></Th>
+            <Th />
           </Tr>
         </Thead>
         <Tbody margin={100}>
           {products.map((product) => (
             <Tr key={product._id}>
-              <Td >{product.name}</Td>
-             
+              <Td>{product.name}</Td>
+
               <Td>
-                <Badge borderRadius="full" px="2" colorScheme="cyan">
+                <Badge borderRadius="full" colorScheme={getBadgeColor(product.category)} px="2">
                   {product.category}
                 </Badge>
               </Td>
               <Td>
                 <Flex>
-                  <Badge borderRadius="full" px="2" colorScheme="gray">
-                    {product.cost}
-                  </Badge>
-                  <Image height={4} src={coin} width={4} />
+                  {product.cost}
+
+                  <Image height={6} marginX={1} src={coin} width={4} />
                 </Flex>
               </Td>
               <Td>
-                <Badge borderRadius="full" px="2" colorScheme="brown">
+                <Badge borderRadius="full" colorScheme="brown" px="2">
                   {toDate(product.createDate)}
                 </Badge>
               </Td>
 
               <Td>
-                <Image
-                  objectFit="contain"
-                  src={product.img.url}
-                  width={20}
-                  height={20}
-                ></Image>
+                <Image height={20} objectFit="contain" src={product.img.url} width={20} />
               </Td>
             </Tr>
           ))}
         </Tbody>
 
-        <Tfoot></Tfoot>
+        <Tfoot />
       </Table>
     </Box>
   );

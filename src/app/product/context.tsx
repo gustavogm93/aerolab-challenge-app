@@ -1,12 +1,16 @@
-import { Center, CircularProgress, Flex } from "@chakra-ui/react";
+import {CircularProgress, Flex} from "@chakra-ui/react";
 import React from "react";
-import { PaginationBase } from "~/common/types";
+
+import {Status} from "~/common/status/types";
+import {PaginationBase} from "~/common/pagination/types";
+
 import api from "./api";
-import { Product} from "./types";
+import {Product} from "./types";
 
 export interface Context {
   state: {
     products: Product[];
+    status: Status;
     pagination: PaginationBase;
   };
   actions: {
@@ -16,22 +20,19 @@ export interface Context {
 
 const ProductContext = React.createContext({} as Context);
 
-const ProductProvider: React.FC = ({ children }) => {
-    const [products, setProducts] = React.useState<Product[]>([]);
-    const [currentPage, setcurrentPage] = React.useState<number>(1);
-    const [pages, setPages] = React.useState<number>(0);
-    const [limit, setLimit] = React.useState<number>(0);
-    const [total, setTotal] = React.useState<number>(0);
-    const [status, setStatus] = React.useState<
-      "pending" | "resolved" | "rejected"
-    >("pending");
+const ProductProvider: React.FC = ({children}) => {
+  const [products, setProducts] = React.useState<Product[]>([]);
+  const [currentPage, setcurrentPage] = React.useState<number>(1);
+  const [pages, setPages] = React.useState<number>(0);
+  const [limit, setLimit] = React.useState<number>(0);
+  const [total, setTotal] = React.useState<number>(0);
+  const [status, setStatus] = React.useState<Status>(Status.Pending);
 
-
-    async function handlePage(page: number) {
-        if (!products) return;
-    
-        setcurrentPage(page);
-      }
+  async function handlePage(page: number) {
+    if (!products) return;
+    setStatus(Status.Pending);
+    setcurrentPage(page);
+  }
 
   React.useEffect(() => {
     api.list(currentPage).then((products) => {
@@ -39,34 +40,20 @@ const ProductProvider: React.FC = ({ children }) => {
       setLimit(products.pagination.limit);
       setTotal(products.pagination.total);
       setProducts(products.data);
-      setStatus("resolved");
+      setStatus(Status.Resolved);
     });
   }, [currentPage]);
 
-    if (status === "pending") {
-    return (
-      <Flex alignItems="center" justifyContent="center" paddingY={12}>
-        <CircularProgress
-          isIndeterminate
-          color="primary.500"
-        ></CircularProgress>
-      </Flex>
-    );
-  }
-
   const state: Context["state"] = {
     products,
-    pagination: {currentPage,  pages, limit, total}   
+    status,
+    pagination: {currentPage, pages, limit, total},
   };
   const actions = {
     setPage: handlePage,
   };
 
-  return (
-    <ProductContext.Provider value={{ state, actions }}>
-      {children}
-    </ProductContext.Provider>
-  );
+  return <ProductContext.Provider value={{state, actions}}>{children}</ProductContext.Provider>;
 };
 
-export { ProductContext as default, ProductProvider as Provider };
+export {ProductContext as default, ProductProvider as Provider};

@@ -1,14 +1,10 @@
 import React from "react";
-import { Flex, CircularProgress, Heading, Stack } from "@chakra-ui/react";
-import { Product } from "~/app/product/types";
+import {Flex, Heading, Stack} from "@chakra-ui/react";
+
 import header from "~/assets/header.png";
 import ProductList from "~/app/product/component/productList";
-import {useProduct } from "~/app/product/hooks";
-import api from "~/app/product/api";
 
 const HomeScreen: React.FC = () => {
-
-
   return (
     <Stack flex={1} spacing={6}>
       <Flex

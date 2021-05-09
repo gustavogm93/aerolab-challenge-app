@@ -1,19 +1,10 @@
-import {
-  Stack,
-  Text,
-  Center,
-  Box,
-  BoxProps,
-  Image,
-  Divider,
-  Flex,
-  Button,
-  Grid,
-} from "@chakra-ui/react";
+import {Stack, Text, Center, Box, BoxProps, Image, Divider, Flex, Button} from "@chakra-ui/react";
 import React from "react";
-import { Product } from "../../types";
+
+import {Product} from "../../types";
 import coin from "~/assets/icons/coin.svg";
-import { usePoints, useRedeem } from "~/app/user/hooks";
+import {usePoints, useRedeem} from "~/app/user/hooks";
+
 import Availability from "./availability";
 import Footer from "./footer";
 
@@ -21,8 +12,7 @@ interface Props extends BoxProps {
   product: Product;
   isSelected: boolean;
 }
-//TODO: Grilla chakra minimo 256px y maximo todo el espacio
-const ProductCard: React.FC<Props> = ({ product, isSelected, ...props }) => {
+const ProductCard: React.FC<Props> = ({product, isSelected, ...props}) => {
   const [points] = usePoints();
   const canBuy = points >= product.cost;
   const pointsDifference = Math.abs(points - product.cost);
@@ -34,6 +24,7 @@ const ProductCard: React.FC<Props> = ({ product, isSelected, ...props }) => {
       return redeem(product);
     }
   }
+
   return (
     <Box
       backgroundColor="white"
@@ -44,9 +35,9 @@ const ProductCard: React.FC<Props> = ({ product, isSelected, ...props }) => {
       {...props}
     >
       <Stack spacing={2}>
-        <Availability canBuy={canBuy} pointsDifference={pointsDifference} />
+        <Availability canBuy={canBuy} isSelected={isSelected} pointsDifference={pointsDifference} />
         <Center>
-          <Image objectFit="contain" src={product.img.url} width={64}></Image>
+          <Image objectFit="contain" src={product.img.url} width={64} />
         </Center>
         <Divider />
         <Footer product={product} />
@@ -54,9 +45,9 @@ const ProductCard: React.FC<Props> = ({ product, isSelected, ...props }) => {
       {isSelected && canBuy && (
         <Flex
           alignItems="center"
-          justifyContent="center"
           borderRadius="sm"
           height="100%"
+          justifyContent="center"
           left={0}
           position="absolute"
           top={0}
@@ -73,31 +64,20 @@ const ProductCard: React.FC<Props> = ({ product, isSelected, ...props }) => {
             top={0}
             width="100%"
           />
-          <Stack
-            color="white"
-            fontSize="2xl"
-            fontWeight="bold"
-            spacing={6}
-            zIndex={3}
-          >
-            <Flex
-              alignItems="center"
-              justifyContent="center"
-              gap={2}
-              
-            >
+          <Stack color="white" fontSize="2xl" fontWeight="bold" spacing={6} zIndex={3}>
+            <Flex alignItems="center" gap={2} justifyContent="center">
               <Text fontSize={32} fontWeight={10}>
                 {product.cost}
               </Text>
-              <Image paddingX={2} position="relative" top={1} src={coin} />
+              <Image paddingX={2} position="relative" src={coin} top={1} />
             </Flex>
 
             {canBuy && (
               <Button
+                borderRadius={10}
+                color="cyan.400"
                 height={42}
                 width={228}
-                borderRadius={10}
-                color="primary.500"
                 onClick={handleRedeem}
               >
                 Reedem now
