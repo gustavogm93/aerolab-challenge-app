@@ -61,7 +61,13 @@ const ProductHistory: React.FC = () => {
               <Td>{product.name}</Td>
 
               <Td>
-                <Badge borderRadius="full" colorScheme={getBadgeColor(product.category)} px="2">
+                <Badge
+                  borderRadius={3}
+                  colorScheme={getBadgeColor(product.category)}
+                  fontSize="0.6em"
+                  m="1"
+                  variant="solid"
+                >
                   {product.category}
                 </Badge>
               </Td>

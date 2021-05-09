@@ -1,4 +1,15 @@
-import {Stack, Text, Center, Box, BoxProps, Image, Divider, Flex, Button} from "@chakra-ui/react";
+import {
+  Stack,
+  Text,
+  Center,
+  Box,
+  BoxProps,
+  Image,
+  Divider,
+  Flex,
+  Button,
+  useToast,
+} from "@chakra-ui/react";
 import React from "react";
 
 import {Product} from "../../types";
@@ -18,9 +29,17 @@ const ProductCard: React.FC<Props> = ({product, isSelected, ...props}) => {
   const pointsDifference = Math.abs(points - product.cost);
 
   const redeem = useRedeem();
+  const toast = useToast();
 
   function handleRedeem() {
     if (canBuy) {
+      toast({
+        title: `success on redeem product `,
+        status: "success",
+        duration: 800,
+        isClosable: true,
+      });
+
       return redeem(product);
     }
   }

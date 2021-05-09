@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Container, Box, Image, Text} from "@chakra-ui/react";
+import {Stack, Container, Box, Image, Text, Tooltip} from "@chakra-ui/react";
 import {Link} from "react-router-dom";
 import {FcTodoList} from "react-icons/fc";
 
@@ -38,7 +38,14 @@ const Navbar: React.FC = () => {
               paddingY={2}
               onClick={() => setPoints(1000)}
             >
-              <Text fontweigth="500"> {points} </Text>
+              <Tooltip
+                aria-label="A tooltip"
+                bg="cyan.400"
+                borderRadius="md"
+                label="you can add points clicking here"
+              >
+                <Text fontweigth="500"> {points} </Text>
+              </Tooltip>
               <Image height={6} src={coin} width={6} />
             </Stack>
             <Link to={"/orders"}>
