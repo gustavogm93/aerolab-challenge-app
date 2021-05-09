@@ -34,7 +34,8 @@ const ProductCard: React.FC<Props> = ({product, isSelected, ...props}) => {
   function handleRedeem() {
     if (canBuy) {
       toast({
-        title: `success on redeem product `,
+        title: `
+        success in redeeming product`,
         status: "success",
         duration: 800,
         isClosable: true,
@@ -93,13 +94,14 @@ const ProductCard: React.FC<Props> = ({product, isSelected, ...props}) => {
 
             {canBuy && (
               <Button
+                _focus={{}}
                 borderRadius={10}
                 color="cyan.400"
                 height={42}
                 width={228}
                 onClick={handleRedeem}
               >
-                Reedem now
+                Redeem now
               </Button>
             )}
           </Stack>
