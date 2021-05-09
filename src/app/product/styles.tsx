@@ -1,13 +1,13 @@
 import {Category} from "./types";
 
 export function getBadgeColor(category: Category): string {
-  if (category === Category.Phones) return "orange";
+  if (category === Category.Phones) return "facebook";
 
-  if (category === Category.Phone_Accessories) return "orange";
+  if (category === Category.Phone_Accessories) return "twitter";
 
-  if (category === Category.Android_Wear) return "blue";
+  if (category === Category.Android_Wear) return "teal ";
 
-  if (category === Category.Laptops) return "blue";
+  if (category === Category.Laptops) return "teal";
 
   if (category === Category.PC_Accessories) return "teal";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {Grid as ChakraGrid, Text} from "@chakra-ui/react";
+import {Grid as ChakraGrid} from "@chakra-ui/react";
 
 import {Product} from "../../types";
 import ProductCard from "~/app/product/component/productCard/productCard";
