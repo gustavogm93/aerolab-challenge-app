@@ -4,12 +4,13 @@ import {User} from "./types";
 
 export default {
   getProfile: async (): Promise<User> => {
-    const {data} = await api.get("user/me");
+    const {data} = await api.get("https://aerolab-service.herokuapp.com/user/me");
 
     return data;
   },
 
   points: {
-    add: async (): Promise<number> => await api.get("user/points"),
+    add: async (): Promise<number> =>
+      await api.get("https://aerolab-service.herokuapp.com/user/points"),
   },
 };

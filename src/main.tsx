@@ -10,29 +10,23 @@ import {Provider as ProductProvider} from "../src/app/product/context";
 import Layout from "~/app/layout/layout";
 
 import theme from "./theme";
-import api from "./api/api";
 
-const App = () => {
-  api.init("https://aerolab-service.herokuapp.com/");
-
-  return (
-    <Router>
-      <React.StrictMode>
-        <ChakraProvider theme={theme}>
-          <UserProvider>
-            <ProductProvider>
-              <Layout>
-                <Switch>
-                  <Route exact component={HomeScreen} path="/" />
-                  <Route exact component={Orders} path="/orders" />
-                </Switch>
-              </Layout>
-            </ProductProvider>
-          </UserProvider>
-        </ChakraProvider>
-      </React.StrictMode>
-    </Router>
-  );
-};
-
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Router>
+    <React.StrictMode>
+      <ChakraProvider theme={theme}>
+        <UserProvider>
+          <ProductProvider>
+            <Layout>
+              <Switch>
+                <Route exact component={HomeScreen} path="/" />
+                <Route exact component={Orders} path="/orders" />
+              </Switch>
+            </Layout>
+          </ProductProvider>
+        </UserProvider>
+      </ChakraProvider>
+    </React.StrictMode>
+  </Router>,
+  document.getElementById("root"),
+);

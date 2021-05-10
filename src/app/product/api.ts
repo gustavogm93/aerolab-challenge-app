@@ -1,11 +1,14 @@
-import api from "~/api/api";
+import axios from "axios";
+
 import {Pagination} from "~/common/pagination/types";
 
 import {Product, ProductHistory} from "./types";
 
 export default {
   list: async (page: number): Promise<Pagination<Product>> => {
-    const {data} = await api.get(`/product?page=${page}&limit=16`);
+    const {data} = await axios.get(
+      `https://aerolab-service.herokuapp.com/product?page=${page}&limit=16`,
+    );
 
     return data;
   },
@@ -15,13 +18,13 @@ export default {
       productId: product._id,
     };
 
-    const {data} = await api.post("/product/redeem", body);
+    const {data} = await axios.post("https://aerolab-service.herokuapp.com/product/redeem", body);
 
     return data;
   },
 
   historyList: async (): Promise<ProductHistory[]> => {
-    const {data} = await api.get("/user/history");
+    const {data} = await axios.get("https://aerolab-service.herokuapp.com/user/history");
 
     return data;
   },
