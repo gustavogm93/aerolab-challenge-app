@@ -11,6 +11,7 @@ import {User} from "./types";
 export interface Context {
   state: {
     user: User;
+    status: Status;
   };
   actions: {
     addPoints: (amount: number) => Promise<void>;
@@ -27,19 +28,18 @@ const UserProvider: React.FC = ({children}) => {
   async function handleRedeem(product: Product) {
     if (!user) return;
 
-    setUser({...user, points: user.points - product.cost});
-
     return productApi.redeem(product).then(() => {
       setUser({...user, points: user.points - product.cost});
+      setStatus(Status.Resolved);
     });
   }
 
   async function handleAddPoints(amount: number) {
     if (!user) return;
-    setUser({...user, points: user.points + amount});
 
-    return api.points.add(amount).then(() => {
+    return api.points.add().then(() => {
       setUser({...user, points: user.points + amount});
+      setStatus(Status.Resolved);
     });
   }
 
@@ -60,6 +60,7 @@ const UserProvider: React.FC = ({children}) => {
 
   const state: Context["state"] = {
     user,
+    status,
   };
   const actions = {
     addPoints: handleAddPoints,

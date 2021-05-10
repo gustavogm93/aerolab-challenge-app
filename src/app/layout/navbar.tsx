@@ -1,14 +1,16 @@
 import React from "react";
-import {Stack, Container, Box, Image, Text} from "@chakra-ui/react";
+import {Stack, Container, Box, Image, Text, Tooltip} from "@chakra-ui/react";
 import {Link} from "react-router-dom";
 import {FcTodoList} from "react-icons/fc";
 
 import logo from "~/assets/logo.svg";
 import coin from "~/assets/icons/coin.svg";
-import {usePoints, useUser} from "~/app/user/hooks";
+import {usePoints, useStatus, useUser} from "~/app/user/hooks";
+import {Status} from "~/common/status/types";
 
 const Navbar: React.FC = () => {
   const [points, setPoints] = usePoints();
+  const status = useStatus();
   const user = useUser();
 
   return (
@@ -38,7 +40,26 @@ const Navbar: React.FC = () => {
               paddingY={2}
               onClick={() => setPoints(1000)}
             >
-              <Text fontweigth="500"> {points} </Text>
+              {status === Status.Pending && (
+                <Tooltip
+                  aria-label="A tooltip"
+                  bg="cyan.400"
+                  borderRadius="md"
+                  label="you can add points clicking here"
+                >
+                  <Text fontweigth="500"> ... </Text>
+                </Tooltip>
+              )}
+
+              <Tooltip
+                aria-label="A tooltip"
+                bg="cyan.400"
+                borderRadius="md"
+                label="you can add points clicking here"
+              >
+                <Text fontweigth="500"> {points} </Text>
+              </Tooltip>
+
               <Image height={6} src={coin} width={6} />
             </Stack>
             <Link to={"/orders"}>

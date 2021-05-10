@@ -1,9 +1,21 @@
-import {Stack, Text, Center, Box, BoxProps, Image, Divider, Flex, Button} from "@chakra-ui/react";
+import {
+  Stack,
+  Text,
+  Center,
+  Box,
+  BoxProps,
+  Image,
+  Divider,
+  Flex,
+  Button,
+  useToast,
+} from "@chakra-ui/react";
 import React from "react";
 
 import {Product} from "../../types";
 import coin from "~/assets/icons/coin.svg";
 import {usePoints, useRedeem} from "~/app/user/hooks";
+import {useSelected} from "../../hooks";
 
 import Availability from "./availability";
 import Footer from "./footer";
@@ -16,12 +28,24 @@ const ProductCard: React.FC<Props> = ({product, isSelected, ...props}) => {
   const [points] = usePoints();
   const canBuy = points >= product.cost;
   const pointsDifference = Math.abs(points - product.cost);
-
+  const [selected, setSelected] = useSelected();
   const redeem = useRedeem();
+  const toast = useToast();
 
-  function handleRedeem() {
+  async function handleRedeem(event) {
+    event.stopPropagation();
     if (canBuy) {
-      return redeem(product);
+      toast({
+        title: `
+        success in redeeming product`,
+        status: "success",
+        duration: 800,
+        isClosable: true,
+      });
+
+      redeem(product);
+
+      return setSelected(null);
     }
   }
 
@@ -72,17 +96,17 @@ const ProductCard: React.FC<Props> = ({product, isSelected, ...props}) => {
               <Image paddingX={2} position="relative" src={coin} top={1} />
             </Flex>
 
-            {canBuy && (
-              <Button
-                borderRadius={10}
-                color="cyan.400"
-                height={42}
-                width={228}
-                onClick={handleRedeem}
-              >
-                Reedem now
-              </Button>
-            )}
+            <Button
+              _focus={{}}
+              borderRadius={10}
+              color="cyan.400"
+              height={42}
+              width={228}
+              zIndex={3}
+              onClick={handleRedeem}
+            >
+              Redeem now
+            </Button>
           </Stack>
         </Flex>
       )}

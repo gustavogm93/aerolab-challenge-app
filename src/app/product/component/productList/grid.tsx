@@ -1,15 +1,15 @@
 import React from "react";
-import {Grid as ChakraGrid, Text} from "@chakra-ui/react";
+import {Grid as ChakraGrid} from "@chakra-ui/react";
 
 import {Product} from "../../types";
 import ProductCard from "~/app/product/component/productCard/productCard";
+import {useSelected} from "../../hooks";
 
 interface Props {
   products: Product[];
 }
-//TODO: Grilla chakra minimo 256px y maximo todo el espacio
 const Grid: React.FC<Props> = ({products}) => {
-  const [selected, setSelected] = React.useState<Product["_id"] | null>(null);
+  const [selected, setSelected] = useSelected();
 
   return (
     <ChakraGrid gap={6} templateColumns="repeat(auto-fill, minmax(256px, 1fr))" width="100%">

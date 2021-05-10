@@ -19,17 +19,15 @@ import coin from "~/assets/icons/coin.svg";
 import {Status} from "~/common/status/types";
 import {toDate} from "~/common/utils/date";
 import {getBadgeColor} from "~/app/product/styles";
+import api from "../../api";
+import {ProductHistory} from "../../types";
 
-import api from "./api";
-import {ProductHistory} from "./types";
-
-//TODO: Grilla chakra minimo 256px y maximo todo el espacio
 const ProductHistory: React.FC = () => {
   const [products, setProducts] = React.useState<ProductHistory[]>([]);
   const [status, setStatus] = React.useState<Status>(Status.Pending);
 
   React.useEffect(() => {
-    api.list().then((products) => {
+    api.historyList().then((products) => {
       setProducts(products);
       setStatus(Status.Resolved);
     });
@@ -61,7 +59,13 @@ const ProductHistory: React.FC = () => {
               <Td>{product.name}</Td>
 
               <Td>
-                <Badge borderRadius="full" colorScheme={getBadgeColor(product.category)} px="2">
+                <Badge
+                  borderRadius={3}
+                  colorScheme={getBadgeColor(product.category)}
+                  fontSize="0.6em"
+                  m="1"
+                  variant="subtle"
+                >
                   {product.category}
                 </Badge>
               </Td>
@@ -73,7 +77,7 @@ const ProductHistory: React.FC = () => {
                 </Flex>
               </Td>
               <Td>
-                <Badge borderRadius="full" colorScheme="brown" px="2">
+                <Badge borderRadius="full" color="gray.500" colorScheme="brown" px="2">
                   {toDate(product.createDate)}
                 </Badge>
               </Td>
