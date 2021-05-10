@@ -9,6 +9,18 @@ export interface Product {
   };
 }
 
+export interface ProductHistory {
+  _id: string;
+  name: string;
+  cost: number;
+  category: Category;
+  createDate: string;
+  img: {
+    url: string;
+    hdUrl: string;
+  };
+}
+
 export enum Category {
   Laptops = "Laptops",
   Phones = "Phones",

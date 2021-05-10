@@ -1,7 +1,7 @@
 import api from "~/api/api";
 import {Pagination} from "~/common/pagination/types";
 
-import {Product} from "./types";
+import {Product, ProductHistory} from "./types";
 
 export default {
   list: async (page: number): Promise<Pagination<Product>> => {
@@ -16,6 +16,12 @@ export default {
     };
 
     const {data} = await api.post("/product/redeem", body);
+
+    return data;
+  },
+
+  historyList: async (): Promise<ProductHistory[]> => {
+    const {data} = await api.get("/user/history");
 
     return data;
   },

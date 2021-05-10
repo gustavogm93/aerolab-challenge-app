@@ -1,4 +1,3 @@
-import {CircularProgress, Flex} from "@chakra-ui/react";
 import React from "react";
 
 import {Status} from "~/common/status/types";
@@ -10,11 +9,13 @@ import {Product} from "./types";
 export interface Context {
   state: {
     products: Product[];
+    selected: Product["_id"] | null;
     status: Status;
     pagination: PaginationBase;
   };
   actions: {
     setPage: (page: number) => Promise<void>;
+    setSelected: (productId: string | null) => Promise<void>;
   };
 }
 
@@ -22,6 +23,7 @@ const ProductContext = React.createContext({} as Context);
 
 const ProductProvider: React.FC = ({children}) => {
   const [products, setProducts] = React.useState<Product[]>([]);
+  const [selected, setSelected] = React.useState<Product["_id"] | null>(null);
   const [currentPage, setcurrentPage] = React.useState<number>(1);
   const [pages, setPages] = React.useState<number>(0);
   const [limit, setLimit] = React.useState<number>(0);
@@ -32,6 +34,10 @@ const ProductProvider: React.FC = ({children}) => {
     if (!products) return;
     setStatus(Status.Pending);
     setcurrentPage(page);
+  }
+
+  async function handleSelect(productId: string | null) {
+    return setSelected(productId);
   }
 
   React.useEffect(() => {
@@ -46,11 +52,13 @@ const ProductProvider: React.FC = ({children}) => {
 
   const state: Context["state"] = {
     products,
+    selected,
     status,
     pagination: {currentPage, pages, limit, total},
   };
   const actions = {
     setPage: handlePage,
+    setSelected: handleSelect,
   };
 
   return <ProductContext.Provider value={{state, actions}}>{children}</ProductContext.Provider>;

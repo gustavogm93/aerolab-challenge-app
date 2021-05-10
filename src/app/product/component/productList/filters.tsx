@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Stack, Text} from "@chakra-ui/react";
+import {Button, Stack, Text} from "@chakra-ui/react";
 
 import {Filter} from "./types";
 
@@ -16,19 +16,21 @@ const Filters: React.FC<Props> = ({onChange, active}) => {
       <Text color="gray.500">Sort By:</Text>
       <Stack direction="row" spacing={4}>
         {_Filters.map((filter) => (
-          <Box
+          <Button
             key={filter}
-            backgroundColor={filter === active ? "cyan.400" : "gray:100"}
+            _active={{bgGradient: "linear(to-l, #00d7ff,#0dd1fa)"}}
+            _focus={{bgGradient: "linear(to-l, #00d7ff,#0dd1fa)"}}
+            _hover={{bgGradient: "linear(to-l, #00d7ff,#0dd1fa)", color: "white"}}
+            bgGradient={filter === active ? "linear(to-l, #00d7ff, #0dd1fa)" : "gray:100"}
             borderRadius={9999}
             color={filter === active ? "white" : "gray:600"}
-            cursor="pointer"
             fontWeight="500"
             paddingX={6}
             paddingY={2}
             onClick={() => onChange(filter)}
           >
             {filter}
-          </Box>
+          </Button>
         ))}
       </Stack>
     </Stack>
