@@ -10,7 +10,6 @@ interface Props {
   isSelected: boolean;
   pointsDifference: number;
 }
-//TODO: Grilla chakra minimo 256px y maximo todo el espacio
 const Availability: React.FC<Props> = ({canBuy, isSelected, pointsDifference}) => {
   if (canBuy) {
     return (
@@ -23,7 +22,7 @@ const Availability: React.FC<Props> = ({canBuy, isSelected, pointsDifference}) =
         fontWeight="500"
         justifyContent="center"
         position="absolute"
-        right={2}
+        right={isSelected ? 1 : 2}
         top={2}
         zIndex={3}
       >

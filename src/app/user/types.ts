@@ -5,5 +5,4 @@ export interface User {
   name: string;
   points: number;
   redeemHistory: Product[];
-  //TODO: createDate: "new Date(1510171520852)"
 }

@@ -10,6 +10,6 @@ export default {
   },
 
   points: {
-    add: async (amount: number): Promise<number> => await api.get("user/points"),
+    add: async (): Promise<number> => await api.get("user/points"),
   },
 };

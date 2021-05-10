@@ -19,6 +19,14 @@ export function useUser(): Context["state"]["user"] {
   return user;
 }
 
+export function useStatus(): Context["state"]["status"] {
+  const {
+    state: {status},
+  } = React.useContext(UserContext);
+
+  return status;
+}
+
 export function useRedeem(): Context["actions"]["redeem"] {
   const {
     actions: {redeem},

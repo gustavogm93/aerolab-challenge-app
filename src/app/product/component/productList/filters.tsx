@@ -18,12 +18,12 @@ const Filters: React.FC<Props> = ({onChange, active}) => {
         {_Filters.map((filter) => (
           <Button
             key={filter}
-            _focus={{}}
-            _hover={{bg: "cyan.400", color: "white"}}
-            backgroundColor={filter === active ? "cyan.400" : "gray:100"}
+            _active={{bgGradient: "linear(to-l, #00d7ff,#0dd1fa)"}}
+            _focus={{bgGradient: "linear(to-l, #00d7ff,#0dd1fa)"}}
+            _hover={{bgGradient: "linear(to-l, #00d7ff,#0dd1fa)", color: "white"}}
+            bgGradient={filter === active ? "linear(to-l, #00d7ff, #0dd1fa)" : "gray:100"}
             borderRadius={9999}
             color={filter === active ? "white" : "gray:600"}
-            cursor="pointer"
             fontWeight="500"
             paddingX={6}
             paddingY={2}

@@ -18,6 +18,15 @@ export function useStatus(): Context["state"]["status"] {
   return status;
 }
 
+export function useSelected(): [Context["state"]["selected"], Context["actions"]["setSelected"]] {
+  const {
+    state: {selected},
+    actions: {setSelected},
+  } = React.useContext(ProductContext);
+
+  return [selected, setSelected];
+}
+
 export function usePage(): Context["actions"]["setPage"] {
   const {
     actions: {setPage},
